@@ -17,8 +17,8 @@
 	final int MIN_POINTS = 5;
 	final int MAX_POINTS = 15;
 
-	final float MIN_ORADIUS = 200;
-	final float MAX_ORADIUS = 400;
+	final float MIN_ORADIUS = 100;
+	final float MAX_ORADIUS = 250;
 
 	final float MIN_IORATIO = 0.3;
 	final float MAX_IORATIO = 0.9;
@@ -94,8 +94,6 @@
 
 		}
 		popMatrix();
-		// float fillColor = map(dna.genes[dna.BRIGHTNESS],MIN_BRIGHTNESS,MAX_BRIGHTNESS);
-		// float fillColor = map(dna.genes[dna.BRIGHTNESS],MIN_BRIGHTNESS,MAX_BRIGHTNESS);
 
 	}
 
@@ -104,22 +102,4 @@
 		return fitness;
 	}
 
-	// void draw() {
-	// 	pushMatrix();
-	// 	// translate(width / 2.0, height / 2.0);
-
-	// 	float rot;
-	// 	float count = shp.getChildCount();
-	// 	for(int i =0; i < count; i++) {
-	// 		rot = map(i,0,count-1,PI*1.25,PI*1.0);
-	// 		pushMatrix();
-	// 		rotate(rot);
-	// 		shape(shp.getChild(i));
-	// 		// shp.getChild(i).setFill(color(200,55));
-	// 		popMatrix();
-	// 	}
-	// 	// shape(shp);
-	// 	// s.draw();
-	// 	popMatrix();
-	// }
 }
