@@ -29,14 +29,21 @@ class AsteriasPopulation  {
 
 	void display(Table t) {
 		assert(t.rows*t.cols == population.length);
+		Asterias as;
 
 		for(int j=0; j < t.rows; ++j ) {
 			for(int i=0; i < t.cols; ++i) {
 				pushMatrix();
 
-				translate( i * t.cellDim.x, j * t.cellDim.y );				
+				translate( i * t.cellDim.x, j * t.cellDim.y );		
+				pushMatrix();		
 				scale(0.4);
-				population[j * t.cols + i].display();
+				as = population[j * t.cols + i];
+				as.display();
+				popMatrix();
+				if(as.fitness > 0) {
+					text(int(as.fitness), t.cellDim.x * 0.5 - 20, t.cellDim.y * 0.5 - 20);
+				}
 				popMatrix();				
 			}
 		}
@@ -82,5 +89,16 @@ class AsteriasPopulation  {
 	      }
 	    }
 	    return record;
+	}
+
+	Asterias get(int i) {
+		if( i >= 0 && i < size()) {
+			return population[i];
+		} 
+		return null;
+	}
+
+	int size() {
+		return population.length;
 	}
 }

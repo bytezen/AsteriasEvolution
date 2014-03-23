@@ -62,7 +62,16 @@ void draw() {
 }
 
 void mousePressed() {
-	int[] cell = t.getCellFromPos(mouseX-tableXOffset,mouseY-tableYOffset);
+	if(t.mouseOver()) {
+		int[] cell = t.getCellFromMousePos();
+		println(cell);
+		int ind = cell[1] * t.cols + cell[0];
+		Asterias a = asp.get(ind);
+		if(a != null )
+			a.fitness++;
+
+
+	}
 }
 
 class Table {
@@ -87,11 +96,11 @@ class Table {
 
 
 	//return the row,col for this position
-	int[] getCellFromPos(float x, float y) {
+	int[] getCellFromMousePos() {
 		int[] ret = new int[2];
 
-		ret[0] = int(x / cellDim.x);
-		ret[1] = int(y / cellDim.y);	
+		ret[0] = int((mouseX - tableXOffset) / cellDim.x);
+		ret[1] = int((mouseY - tableYOffset) / cellDim.y);	
 
 		return ret;
 	}
@@ -104,7 +113,7 @@ class Table {
 		rectMode(CORNER);
 
 		if( mouseOver() ) {
-			int[] cell = getCellFromPos(mouseX-tableXOffset,mouseY-tableYOffset);
+			int[] cell = getCellFromMousePos();
 			pushStyle();
 			fill(hoverColor);
 			noStroke();
