@@ -72,12 +72,20 @@ class AsteriasPopulation  {
 		//Create a new population with the children from the mating pool
 		for(int i=0; i< population.length; ++i) {
 			int m = int(random(matingPool.size()));
-			int d = int(random(matingPool.size()));
+			int d = m; 
+			while( d == m ) {
+				d = int(random(matingPool.size()));
+			}
 
 			Asterias mom = matingPool.get(m);
 			Asterias dad = matingPool.get(d);
 
-			// AsteriasDNA childGenes = mom.genes
+			AsteriasDNA momGenes = mom.getDNA();
+			AsteriasDNA dadGenes = dad.getDNA();
+			AsteriasDNA childGenes = momGenes.crossover(dadGenes);
+
+			childGenes.mutate(m);
+			population[i] = new Asterias(childGenes,momGenes,dadGenes);
 		}
 	}
 

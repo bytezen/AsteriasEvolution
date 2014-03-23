@@ -64,7 +64,6 @@ void draw() {
 void mousePressed() {
 	if(t.mouseOver()) {
 		int[] cell = t.getCellFromMousePos();
-		println(cell);
 		int ind = cell[1] * t.cols + cell[0];
 		Asterias a = asp.get(ind);
 		if(a != null )

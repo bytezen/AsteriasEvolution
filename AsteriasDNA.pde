@@ -19,11 +19,11 @@ class AsteriasDNA implements DNA {
 	}
 
 	//Create a new DNA strand from the mixture of this DNA and other
+	// using a random point to determine which genes come from which
 	AsteriasDNA crossover(AsteriasDNA other) {
 		float[] childGenes = new float[this.genes.length];
 		int crossoverPoint = int(random (this.genes.length));
-		println( "\t ... crossover point =" + crossoverPoint);
-
+		
 		for(int i = 0; i < this.genes.length; ++i) {
 			if( i > crossoverPoint)
 				childGenes[i] = this.genes[i];
@@ -39,7 +39,6 @@ class AsteriasDNA implements DNA {
 	void mutate(float m) {
 		for( int i=0; i < genes.length; ++i) {
 			if(random(1) < m) {
-				println("mutating gene " + i);
 				genes[i] = random(0,1);
 			}
 		}		

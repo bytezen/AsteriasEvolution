@@ -1,5 +1,5 @@
  class Asterias {
- 	AsteriasDNA dna;
+ 	AsteriasDNA dna, momDNA, dadDNA;
 
 	float hu;
 	float sat = 80;
@@ -28,8 +28,14 @@
 
 
 	Asterias(AsteriasDNA dna) {
+		this(dna,null,null);
+	}
+
+	Asterias(AsteriasDNA dna, AsteriasDNA mom, AsteriasDNA dad) {
 		this.dna = dna;
 		this.hu = dna.genes[HUE];
+		momDNA = mom;
+		dadDNA = dad;
 	}
 
 	void drawStar(int verts, float innerRadius, float outerRadius) {		
@@ -100,6 +106,10 @@
 	float increaseFitness(float v) {
 		fitness += v;
 		return fitness;
+	}
+
+	AsteriasDNA getDNA() {
+		return dna;
 	}
 
 }
