@@ -69,9 +69,17 @@ void mousePressed() {
 		Asterias a = asp.get(ind);
 		if(a != null )
 			a.fitness++;
-
-
 	}
+
+  if (btn.clicked(mouseX,mouseY)) {
+    asp.selection();
+    asp.reproduction();
+  }
+}
+
+
+void mouseReleased() {
+	btn.released();
 }
 
 class Table {
