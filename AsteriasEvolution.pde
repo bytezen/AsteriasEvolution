@@ -6,6 +6,7 @@
 
 
 import controlP5.*;
+import java.awt.Rectangle;
 
 //GENE CODES
 //gene codes
@@ -24,6 +25,7 @@ ControlP5 cp;
 AsteriasPopulation asp;
 
 Table t;
+float tableXOffset, tableYOffset;
 int rows  = 4;
 int cols = 4;
 float tablePadding = 200;
@@ -36,8 +38,10 @@ void setup() {
 	textSize(24);
 
 	cp = new ControlP5(this);
-
 	t = new Table(rows,cols,width-tablePadding,800);
+	tableXOffset = width * 0.5 - t.twidth * 0.5;
+	tableYOffset = height * 0.5 - t.theight * 0.6;
+
 	asp = new AsteriasPopulation(0.1, t.rows*t.cols);
 	// noLoop();
 
@@ -49,8 +53,8 @@ void draw() {
 	background(0,0,80);
 	t.display();
 	pushMatrix();
-	translate((width * 0.5  - t.twidth * 0.5) + t.cellDim.x * 0.5 , 
-			   (height * 0.5 - t.theight * 0.6) + t.cellDim.y * 0.5);
+	translate(tableXOffset + t.cellDim.x * 0.5 , 
+			   tableYOffset + t.cellDim.y * 0.5);
 	asp.display(t);
 	popMatrix();
 
@@ -58,9 +62,7 @@ void draw() {
 }
 
 void mousePressed() {
-	int[] cell = t.getCellFromPos(mouseX, mouseY);
-	println(cell);
-	// cell[1] * t.cols
+	int[] cell = t.getCellFromPos(mouseX-tableXOffset,mouseY-tableYOffset);
 }
 
 class Table {
@@ -68,6 +70,9 @@ class Table {
 	int cols;
 	PVector cellDim;
 	float twidth,theight;
+	Rectangle bbox;
+
+	color hoverColor = color(0,80,80);
 
 	Table(int r, int c, float w, float h) {
 		cellDim =  new PVector( w/c, h/r);
@@ -75,6 +80,7 @@ class Table {
 		cols = c;
 		twidth = cellDim.x * cols;
 		theight = cellDim.y * rows;		
+		bbox = new Rectangle(0,0,int(twidth),int(theight));
 	}	
 
 	int size() { return rows * cols; }
@@ -84,8 +90,8 @@ class Table {
 	int[] getCellFromPos(float x, float y) {
 		int[] ret = new int[2];
 
-		ret[0] = int(y / cellDim.y);	
-		ret[1] = int(x / cellDim.x);
+		ret[0] = int(x / cellDim.x);
+		ret[1] = int(y / cellDim.y);	
 
 		return ret;
 	}
@@ -94,9 +100,20 @@ class Table {
 		pushMatrix();
 		pushStyle();
 		strokeWeight(2.0);
-		fill(200,100,20,50);
-		translate(width * 0.5 - twidth * 0.5, height * 0.5 - theight *0.6);
+		translate(tableXOffset, tableYOffset);
 		rectMode(CORNER);
+
+		if( mouseOver() ) {
+			int[] cell = getCellFromPos(mouseX-tableXOffset,mouseY-tableYOffset);
+			pushStyle();
+			fill(hoverColor);
+			noStroke();
+			rect(cell[0] * cellDim.x, cell[1] * cellDim.y, cellDim.x, cellDim.y);			
+			popStyle();
+			// c = hoverColor;
+		}
+		fill(200,200,20,100);
+
 		rect(0, 0, twidth, theight,2);
 
 
@@ -112,6 +129,10 @@ class Table {
 
 		popStyle();
 		popMatrix();
+	}
+
+	boolean mouseOver() {
+		return bbox.contains(mouseX-tableXOffset,mouseY-tableYOffset);
 	}
 }
 

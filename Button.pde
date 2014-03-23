@@ -5,7 +5,7 @@
 // Interactive Selection
 // http://www.genarts.com/karl/papers/siggraph91.html
 
-import java.awt.Rectangle;
+
 
 class Button {
   Rectangle r;  // Button's rectangle
