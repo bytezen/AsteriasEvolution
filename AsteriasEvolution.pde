@@ -50,7 +50,7 @@ float MAX_ROTATION = radians(100);
 // long complexEnvironmentThreshold = 1000 * 60;
 // boolean complexMode = false;
 
-
+PImage bg;
 ControlP5 cp;
 
 // Asterias [] fs;
@@ -79,10 +79,37 @@ void setup() {
 
 	btn = new Button(int(width * 0.5 - 100), int(height * 0.85), 200, 75, "Evolve It!");
 
+	//background
+	PGraphics bgGraphics = createGraphics(width*2,height*2);
+	int hLines = 1000;
+	int vLines = 50;
+	bgGraphics.beginDraw();
+	bgGraphics.strokeWeight(0.5);
+	// bgGraphics.stroke(color(229,35,53));
+	bgGraphics.stroke(color(0,0,60));
+	bgGraphics.translate(bgGraphics.width/2.0, bgGraphics.height/2.0);
+	
+	
+	bgGraphics.rotate(PI/3.0);
+	for(int i=0; i < vLines; ++i) {
+		float _x = map(i,0,vLines,-bgGraphics.width/2.0,bgGraphics.width/2.0); 
+		bgGraphics.line(_x,-bgGraphics.height/2.0, _x,bgGraphics.height/2.0);
+	}
+	bgGraphics.rotate(-2*PI/3.0);
+	for(int i=0; i < hLines; ++i) {
+		float _x = map(i,0,hLines,-bgGraphics.width/2.0,bgGraphics.width/2.0); 
+		bgGraphics.line(_x,-bgGraphics.height/2.0, _x,bgGraphics.height/2.0);
+	}			
+
+	bgGraphics.endDraw();
+	bg = bgGraphics.get();
+
+
 }
 
 void draw() {
 	background(0,0,80);
+	image(bg,width*0.5 - bg.width*0.5, height*0.5-bg.height*0.5);
 	t.display();
 	pushMatrix();
 	translate(tableXOffset + t.cellDim.x * 0.5 , 
@@ -152,6 +179,8 @@ class Table {
 	float twidth,theight;
 	Rectangle bbox;
 
+	color bgColor = color(206,11,56);
+	color gridColor = color(223,23,55);
 	color hoverColor = color(186,80,80);
 	color textColor = color(186,10,90);
 
@@ -193,8 +222,8 @@ class Table {
 			popStyle();
 			// c = hoverColor;
 		}
-		fill(200,200,20,100);
-
+		fill(bgColor);
+		stroke(gridColor);
 		rect(0, 0, twidth, theight,2);
 
 
