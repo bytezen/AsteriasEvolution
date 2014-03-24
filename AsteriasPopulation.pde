@@ -59,8 +59,14 @@ class AsteriasPopulation  {
 		float nFit;
 		for(int i=0; i < population.length; ++i) {
 			nFit = norm(population[i].fitness, 0, maxFit);
-			int n = int( nFit * 100);
-			n = max(n,1);		//make sure we add at least one
+			int n = int( nFit * 10);
+			if( n == 0 ) { // randomly choose some that have 0 fitness
+				if(random(1) < 0.75 ) {
+					n = 1;
+				}
+			}
+			// println("adding " + n + " to the selection pool");
+			// n = max(n,1);		//make sure we add at least one
 			for(int j=0; j < n; ++j) {
 				matingPool.add(population[i]);
 			}

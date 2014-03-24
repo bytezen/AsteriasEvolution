@@ -27,7 +27,7 @@ final int MIN_BRIGHT = 7;
 // float MAX_HUE = 120;
 
 int MIN_BRIGHT_LO = 20;
-int MIN_BRIGHT_HI = 60;
+int MIN_BRIGHT_HI = 50;
 
 // float MIN_BRIGHTNESS = 20;
 float MAX_BRIGHTNESS = 200;

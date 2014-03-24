@@ -56,8 +56,8 @@
 
 	void display() {
 		//set the display variables based on the genetic code 
-		float minBright 		=	lerp(MIN_BRIGHT_LO, MIN_BRIGHT_HI, dna.genes[MIN_BRIGHT]);
-		float shadeColor 	=     lerp(minBright,MAX_BRIGHTNESS,dna.genes[BRIGHTNESS]);
+		float minBright 	= lerp(MIN_BRIGHT_LO, MIN_BRIGHT_HI, dna.genes[MIN_BRIGHT]);
+		float shadeColor 	= lerp(minBright,MAX_BRIGHTNESS,dna.genes[BRIGHTNESS]);
 		int rings 			= int(lerp(MIN_RINGS, MAX_RINGS, dna.genes[RINGS]));
 		int points 			= int(lerp(MIN_POINTS,MAX_POINTS, dna.genes[POINTS]));
 		float oRadius 		= lerp(MIN_ORADIUS,MAX_ORADIUS, dna.genes[OUTERRAD]);
@@ -77,7 +77,7 @@
 			pushMatrix();			
 			fill( hu, sat, c );
 			// stroke( hu, sat, cinv, 100 );
-			stroke(cinv, 100 );
+			stroke(hu,sat, cinv, 100 );
 			// star( points, );
 			
 			float s =  lerp(1.0,0.4,t);
