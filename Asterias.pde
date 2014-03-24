@@ -98,6 +98,17 @@
 		return fitness;
 	}
 
+	float increaseFitness() {
+		increaseFitness(1);
+		return fitness;
+	}
+
+	float decreaseFitness() {
+		fitness--;
+		fitness = max(fitness,0);
+		return fitness;
+	}
+
 	AsteriasDNA getDNA() {
 		return dna;
 	}

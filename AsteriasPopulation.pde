@@ -44,7 +44,7 @@ class AsteriasPopulation  {
 				if(as.fitness > 0) {
 					pushStyle();
 					fill(t.textColor);
-					text(int(as.fitness), t.cellDim.x * 0.5 - 30, t.cellDim.y * 0.5 - 10);
+					text(int(as.fitness), t.cellDim.x * 0.5 - 50, t.cellDim.y * 0.5 - 10);
 					popStyle();
 				}
 				popMatrix();				

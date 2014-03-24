@@ -156,8 +156,13 @@ void mousePressed() {
 		int[] cell = t.getCellFromMousePos();
 		int ind = cell[1] * t.cols + cell[0];
 		Asterias a = asp.get(ind);
-		if(a != null )
-			a.fitness++;
+		if(a != null ) {
+			if(mouseButton == LEFT) 
+				a.increaseFitness();
+			else if(mouseButton == RIGHT)
+				a.decreaseFitness();
+			
+		}
 	}
 
 
