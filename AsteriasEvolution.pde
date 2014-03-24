@@ -67,7 +67,7 @@ void setup() {
 	size(1200,1100);
 	smooth(4);
 	colorMode(HSB,360,100,100);
-	textSize(24);
+	textSize(36);
 
 	cp = new ControlP5(this);
 	t = new Table(rows,cols,width-tablePadding,800);
@@ -77,7 +77,7 @@ void setup() {
 	asp = new AsteriasPopulation(0.1, t.rows*t.cols);
 	// noLoop();
 
-	btn = new Button(int(width * 0.5 - 75), int(height * 0.85), 150, 75, "Evolve It!");
+	btn = new Button(int(width * 0.5 - 100), int(height * 0.85), 200, 75, "Evolve It!");
 
 }
 
@@ -152,7 +152,8 @@ class Table {
 	float twidth,theight;
 	Rectangle bbox;
 
-	color hoverColor = color(0,80,80);
+	color hoverColor = color(186,80,80);
+	color textColor = color(186,10,90);
 
 	Table(int r, int c, float w, float h) {
 		cellDim =  new PVector( w/c, h/r);

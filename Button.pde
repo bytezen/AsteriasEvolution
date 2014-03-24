@@ -13,6 +13,10 @@ class Button {
   boolean clickedOn;  // Did i click on it?
   boolean rolloverOn; // Did i rollover it?
 
+  color baseColor = color(50,30,80);
+  color hoverColor = color(50,80,100);
+  color clickColor = color(50,0,80);
+
   Button(int x, int y, int w, int h, String s) {
     r = new Rectangle(x,y-5,w,h);
     txt = s;
@@ -20,17 +24,19 @@ class Button {
 
   void display() {
     // Draw rectangle and text based on whether rollover or clicked
-    stroke(0); 
+    pushStyle();
+    stroke(hoverColor); 
     strokeWeight(3);
-    noFill();
   
 
     if (rolloverOn) 
-      fill(0.5);
-    if (clickedOn) 
-      fill(0);
+      fill(hoverColor);
+    else if (clickedOn) 
+      fill(clickColor);
+    else 
+      fill(baseColor);
 
-    rect(r.x,r.y,r.width,r.height,3);
+    rect(r.x,r.y,r.width,r.height,5);
 
     float b = 0.0;
     if (clickedOn) 
@@ -42,7 +48,8 @@ class Button {
 
     fill(b);
     textAlign(CENTER);
-    text(txt,r.x + r.width * 0.5 ,r.y + r.height*0.60);
+    text(txt,r.x + r.width * 0.5 ,r.y + r.height*0.70);
+    popStyle();
   }
   
   
@@ -57,7 +64,8 @@ class Button {
   }
 
   boolean clicked(int mx, int my) {
-    if (r.contains(mx,my)) clickedOn = true;
+    if (r.contains(mx,my)) 
+      clickedOn = true;
     return clickedOn;
   }
 
