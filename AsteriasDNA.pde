@@ -4,13 +4,12 @@
 
 class AsteriasDNA implements DNA {
 	float[] genes;
-	int len = 7;
-	Genes g = Genes.RINGS;
+	
 
 	AsteriasDNA() {
-		genes = new float[len];
+		genes = new float[GENE_LEN];
 		for(int i=0; i < genes.length; ++i) {
-			genes[i] = random(0,1);
+			genes[i] = random(1);
 		}
 	}
 
@@ -53,6 +52,7 @@ class AsteriasDNA implements DNA {
 		s += "brightness: " + genes[BRIGHTNESS] + " ";
 		s += "rotation: " + genes[ROTATION] + " ";
 		s += "hue: " + genes[HUE] + " ";
+		s += "min bright: " + genes[MIN_BRIGHT];
 
 		return s;
 	}

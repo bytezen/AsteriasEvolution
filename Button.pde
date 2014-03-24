@@ -14,21 +14,23 @@ class Button {
   boolean rolloverOn; // Did i rollover it?
 
   Button(int x, int y, int w, int h, String s) {
-    r = new Rectangle(x,y,w,h);
+    r = new Rectangle(x,y-5,w,h);
     txt = s;
   }
 
   void display() {
     // Draw rectangle and text based on whether rollover or clicked
-    rectMode(CENTER);
     stroke(0); 
     strokeWeight(3);
     noFill();
+  
+
     if (rolloverOn) 
       fill(0.5);
     if (clickedOn) 
       fill(0);
-    rect(r.x,r.y - 5,r.width,r.height,5);
+
+    rect(r.x,r.y,r.width,r.height,3);
 
     float b = 0.0;
     if (clickedOn) 
@@ -40,15 +42,17 @@ class Button {
 
     fill(b);
     textAlign(CENTER);
-    text(txt,r.x,r.y);
+    text(txt,r.x + r.width * 0.5 ,r.y + r.height*0.60);
   }
   
   
   // Methods to check rollover, clicked, or released (must be called from appropriate
   // Places in draw, mousePressed, mouseReleased
   boolean rollover(int mx, int my) {
-    if (r.contains(mx,my)) rolloverOn = true;
-    else rolloverOn = false;
+    if (r.contains(mx,my)) 
+      rolloverOn = true;
+    else 
+      rolloverOn = false;
     return rolloverOn;
   }
 

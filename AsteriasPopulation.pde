@@ -84,9 +84,14 @@ class AsteriasPopulation  {
 			AsteriasDNA dadGenes = dad.getDNA();
 			AsteriasDNA childGenes = momGenes.crossover(dadGenes);
 
-			childGenes.mutate(m);
-			population[i] = new Asterias(childGenes,momGenes,dadGenes);
+			childGenes.mutate(mutationRate);
+			// println("momGenes = " + momGenes);
+			// println("dadGenes = " + dadGenes);
+			// println(childGenes + "\n");
+			population[i] = new Asterias(childGenes,momGenes,dadGenes);		
 		}
+
+		generations++;
 	}
 
 	float getMaxFitness() {

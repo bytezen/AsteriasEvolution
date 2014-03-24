@@ -10,6 +10,8 @@ import java.awt.Rectangle;
 
 //GENE CODES
 //gene codes
+final int GENE_LEN = 8;
+
 final int RINGS = 0;
 final int POINTS = 1;
 final int OUTERRAD = 2;
@@ -17,6 +19,36 @@ final int IORATIO = 3;
 final int BRIGHTNESS = 4;
 final int ROTATION = 5;
 final int HUE = 6;
+final int MIN_BRIGHT = 7;
+
+//VALUES For GENES
+//VALUES For GENES
+// float MIN_HUE = 120;
+// float MAX_HUE = 120;
+
+int MIN_BRIGHT_LO = 20;
+int MIN_BRIGHT_HI = 60;
+
+// float MIN_BRIGHTNESS = 20;
+float MAX_BRIGHTNESS = 200;
+
+int MIN_RINGS = 3;
+int MAX_RINGS = 20;
+
+int MIN_POINTS = 5;
+int MAX_POINTS = 15;
+
+float MIN_ORADIUS = 100;
+float MAX_ORADIUS = 250;
+
+float MIN_IORATIO = 0.3;
+float MAX_IORATIO = 0.95;
+
+float MIN_ROTATION = radians(45);
+float MAX_ROTATION = radians(100);
+
+// long complexEnvironmentThreshold = 1000 * 60;
+// boolean complexMode = false;
 
 
 ControlP5 cp;
@@ -45,7 +77,7 @@ void setup() {
 	asp = new AsteriasPopulation(0.1, t.rows*t.cols);
 	// noLoop();
 
-	btn = new Button(int(width * 0.5), int(height * 0.95), 150, 75, "Evolve It!");
+	btn = new Button(int(width * 0.5 - 75), int(height * 0.85), 150, 75, "Evolve It!");
 
 }
 
@@ -58,8 +90,39 @@ void draw() {
 	asp.display(t);
 	popMatrix();
 
+	btn.rollover(mouseX,mouseY);		
 	btn.display();
+
+	// if(!complexMode && (millis() > complexEnvironmentThreshold) ) {
+	// 	complexMode = true;
+	// 	evolveGeneComplexity();
+	// }
 }
+
+
+
+// void evolveGeneComplexity() {
+// 	MIN_HUE = 0;
+// 	MAX_HUE = 240;
+
+// 	MIN_BRIGHTNESS = 10;
+// 	MAX_BRIGHTNESS = 100;
+
+// 	int MIN_RINGS = 3;
+// 	int MAX_RINGS = 20;
+
+// 	int MIN_POINTS = 5;
+// 	int MAX_POINTS = 15;
+
+// 	MIN_ORADIUS = 100;
+// 	MAX_ORADIUS = 250;
+
+// 	MIN_IORATIO = 0.3;
+// 	MAX_IORATIO = 0.9;
+
+// 	MIN_ROTATION = radians(90);
+// 	MAX_ROTATION = radians(200);
+// }
 
 void mousePressed() {
 	if(t.mouseOver()) {
@@ -69,6 +132,7 @@ void mousePressed() {
 		if(a != null )
 			a.fitness++;
 	}
+
 
   if (btn.clicked(mouseX,mouseY)) {
     asp.selection();
