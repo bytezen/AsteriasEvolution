@@ -5,7 +5,6 @@
 //	rhazes
 
 
-import controlP5.*;
 import java.awt.Rectangle;
 
 //GENE CODES
@@ -51,7 +50,6 @@ float MAX_ROTATION = radians(100);
 // boolean complexMode = false;
 
 PImage bg;
-ControlP5 cp;
 
 // Asterias [] fs;
 AsteriasPopulation asp;
@@ -69,7 +67,7 @@ void setup() {
 	colorMode(HSB,360,100,100);
 	textSize(36);
 
-	cp = new ControlP5(this);
+	
 	t = new Table(rows,cols,width-tablePadding,800);
 	tableXOffset = width * 0.5 - t.twidth * 0.5;
 	tableYOffset = height * 0.5 - t.theight * 0.6;
