@@ -1,5 +1,6 @@
  class Asterias {
- 	AsteriasDNA dna, momDNA, dadDNA;
+ 	AsteriasDNA dna;
+ 	Asterias mom, dad;
 
 	float hu;
 	float sat = 80;
@@ -7,12 +8,11 @@
 
 
 
-
 	Asterias(AsteriasDNA dna) {
 		this(dna,null,null);
 	}
 
-	Asterias(AsteriasDNA dna, AsteriasDNA mom, AsteriasDNA dad) {
+	Asterias(AsteriasDNA dna, Asterias mom, Asterias dad) {
 		this.dna = dna;
 		if(dna.genes[HUE] < 0.3) {
 			hu = random(0,120); 
@@ -23,8 +23,8 @@
 		}
 
 		
-		momDNA = mom;
-		dadDNA = dad;
+		this.mom = mom;
+		this.dad = dad;
 	}
 
 	void drawStar(int verts, float innerRadius, float outerRadius) {		
@@ -91,6 +91,34 @@
 		}
 		popMatrix();
 
+	}
+
+	ArrayList<Asterias> getFamilyTree() {
+		ArrayList<Asterias> family = new ArrayList<Asterias>();
+		Asterias mgrandma = null;
+		Asterias mgrandpa = null;
+		Asterias dgrandma = null;
+		Asterias dgrandpa = null;
+
+		if(mom != null) {		
+			mgrandma = mom.mom;
+			mgrandpa = mom.dad;
+		}
+
+		if(dad != null) {
+			dgrandma = dad.mom;
+			dgrandpa = dad.dad;
+		}
+		
+		family.add(mgrandma);		
+		family.add(mgrandpa);		
+		family.add(dgrandma);
+		family.add(dgrandpa);
+		family.add(mom);
+		family.add(dad);
+		family.add(this);
+
+		return family;
 	}
 
 	float increaseFitness(float v) {

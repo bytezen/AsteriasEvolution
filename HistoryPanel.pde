@@ -7,6 +7,9 @@ class HistoryPanel {
 	boolean hoverOn = false;
 	int[][] data;
 
+	int rows = 3;
+	int cols = 4;
+
 	Table t;
 
 	HistoryPanel(int x, int y, int w, int h, PStyle style) {
@@ -17,10 +20,10 @@ class HistoryPanel {
 		this.style = style;
 		r = new Rectangle(x,y,w,h);
 
-		
+		t = new Table(rows,cols,w,h);
 	}
 
-	void display() {
+	void display(ArrayList<Asterias> data) {
 		pushStyle();
 		fill(style.fillColor);
 		stroke(style.strokeColor);		
@@ -33,51 +36,74 @@ class HistoryPanel {
 			t.display();
 		}
 
-		translate(t.cellDim.x*0.5,100);
-		drawHistory();
+		translate(0,t.cellDim.y*0.5);
+		drawHistory(data);
 
 		popMatrix();
 		popStyle();
 	}
 
-	void drawHistory() {
-		int gens = getGenerations(data.length);
-		
+	void drawHistory(ArrayList<Asterias> data) {
+		int gens = getGenerations(data.size());
 		int ptr = 0;
-		if(gens >= 1 ) {
-			//draw the first one
-			
-			for(int i=gens-1; i >= 0; --i) {				
-				float _y = map(i,gens-1,0,0,500);
-				float spacing = map(i,gens-1,0,0,gens*t.cellDim.x*0.5);
-				int revGenOrdinal = (gens-1) - i;
+		float offset = t.cellDim.x * 0.5;
+		float cellSpacing = t.cellDim.x;
 
-				int count = int(pow(2,i));  //count in this generation
+		if(gens >= 1 ) {
+			for(int i=gens-1; i >= 0; --i) {				
+				int revGenOrdinal = (gens-1) - i;
+				float f 	= pow(2,revGenOrdinal);
+				float _y 	= revGenOrdinal * t.cellDim.y;
+				float _x 	= f * offset;				
+
+				float spacing = f * cellSpacing;
+				int count = int(pow(2,i));  
 				
 				pushMatrix();
-				translate( revGenOrdinal * t.cellDim.x * 0.5,_y);
+				translate( f * offset,_y);
 				
 				for(int j=0; j < count; j++) {					
 					pushMatrix();
-					translate(j*t.cellDim.x* (revGenOrdinal + 1),0);
-				
-					if(ptr < data.length) { 
-				
-						devOnlyDrawData(data[ptr]);
+					translate(j*spacing,0);
+					// print((j*spacing) + "\t");
+
+					if(i < gens-1) {
+						line(0,0, 0, -t.cellDim.y);						
+					}
+
+					if(j % 2 == 0 && j < count - 1) {
+						line(0,0,spacing,0);
+					}
+					
+					if(ptr < data.size()) {
+						if(data.get(i) != null) {
+							data.get(i).display();
+						}
+						// devOnlyDrawData(data[ptr]);
 						ptr++;		
 					}
 					popMatrix();			
 				}
+				// println();
 				popMatrix();
 			}
 		}
+	}
+
+	int getGenerations(int totalCount) {
+		int gen = 0;
+		while(totalCount > 0 && gen <=10) {
+			totalCount = totalCount >> 1;
+			gen++;
+		}
+		return gen;
 	}
 
 	void devOnlyDrawData(int[] d) {
 		pushStyle();
 		fill(d[0]);
 		stroke(d[1]);
-		ellipse(0,0,t.cellDim.x*0.9, t.cellDim.y * 0.9);
+		ellipse(0,0,t.cellDim.x*0.75, t.cellDim.y * 0.75);
 		popStyle();
 	}
 

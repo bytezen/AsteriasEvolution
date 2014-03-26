@@ -97,7 +97,7 @@ class AsteriasPopulation  {
 			// println("momGenes = " + momGenes);
 			// println("dadGenes = " + dadGenes);
 			// println(childGenes + "\n");
-			population[i] = new Asterias(childGenes,momGenes,dadGenes);		
+			population[i] = new Asterias(childGenes,mom,dad);		
 		}
 
 		generations++;

@@ -53,6 +53,7 @@ PImage bg;
 
 // Asterias [] fs;
 AsteriasPopulation asp;
+Asterias selectedAsterias;
 
 Table t;
 float tableXOffset, tableYOffset;
@@ -61,6 +62,7 @@ int cols = 4;
 float tablePadding = 200;
 Button btn;
 
+boolean showHistory = false;
 HistoryPanel hist;
 
 void setup() {
@@ -123,14 +125,27 @@ void draw() {
 	btn.rollover(mouseX,mouseY);		
 	btn.display();
 
-	// if(!complexMode && (millis() > complexEnvironmentThreshold) ) {
-	// 	complexMode = true;
-	// 	evolveGeneComplexity();
-	// }
-
-	hist.display();
+	if(showHistory && selectedAsterias != null) {
+		hist.display(selectedAsterias.getFamilyTree());		
+	}
 }
 
+void keyPressed() {
+	if(key=='h') {
+		if( showHistory ) {
+			showHistory = false;
+			selectedAsterias = null;
+		}
+		else {
+			int[] cell = t.getCellFromMousePos();
+			int ind = cell[1] * t.cols + cell[0];
+			selectedAsterias = asp.get(ind);
+			println(selectedAsterias.getFamilyTree());	
+			showHistory = true;	
+			
+		}
+	}
+}
 
 
 // void evolveGeneComplexity() {
@@ -160,13 +175,13 @@ void mousePressed() {
 	if(t.mouseOver()) {
 		int[] cell = t.getCellFromMousePos();
 		int ind = cell[1] * t.cols + cell[0];
-		Asterias a = asp.get(ind);
-		if(a != null ) {
+		selectedAsterias = asp.get(ind);
+
+		if(selectedAsterias != null ) {
 			if(mouseButton == LEFT) 
-				a.increaseFitness();
+				selectedAsterias.increaseFitness();
 			else if(mouseButton == RIGHT)
-				a.decreaseFitness();
-			
+				selectedAsterias.decreaseFitness();
 		}
 	}
 
@@ -180,6 +195,7 @@ void mousePressed() {
 
 void mouseReleased() {
 	btn.released();
+	selectedAsterias = null;
 }
 
 
