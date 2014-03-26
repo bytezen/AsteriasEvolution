@@ -61,6 +61,8 @@ int cols = 4;
 float tablePadding = 200;
 Button btn;
 
+HistoryPanel hist;
+
 void setup() {
 	size(1200,1100);
 	smooth(4);
@@ -103,6 +105,9 @@ void setup() {
 	bg = bgGraphics.get();
 
 
+	//History Panel
+	hist = new HistoryPanel(100,100,600,600, new PStyle());
+
 }
 
 void draw() {
@@ -122,6 +127,8 @@ void draw() {
 	// 	complexMode = true;
 	// 	evolveGeneComplexity();
 	// }
+
+	hist.display();
 }
 
 
